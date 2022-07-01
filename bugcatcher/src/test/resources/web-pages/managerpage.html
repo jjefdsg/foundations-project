@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Page</title>
+    <style>
+        p{
+            display: flex;
+        }
+        main{
+            display: flex;
+            align-items: center;
+        }
+        #img{
+            height: 200;
+            width: 150;
+        }
+        body{
+            background-color: azure;
+        }
+        
+    </style>
+    <title>Manager Page</title>
+</head>
+<body>
+    <h1>Manager Page</h1>
+    <div>
+        <img id="img" src="https://i.pinimg.com/originals/cf/aa/9f/cfaa9fe656fd2ecd92ac222df0a3722f.jpg" alt="avatar">
+    </div>
+<main>
+    <input type="text" placeholder="defect" id="defect">
+    <select name="" id="options">
+        <option value="TesterOne" id="one">TesterOne</option>
+        <option value="TesterTwo">TesterTwo</option>
+        <option value="TesterThree">TesterThree</option>
+    </select>
+    <button id="click">assign</button>
+
+    <p id="text"></p> <p id="accept"></p> <p id="update"></p>
+
+</main>
+    
+
+    <div>
+    </div>
+
+    
+
+    
+
+
+    
+
+    <script src="manager.js"></script>
+</body>
+<script>
+
+    let head=document.getElementById('head1')
+    let head2= document.getElementById('head2')
+    let head3= document.getElementById('head3')
+
+    let head4=document.getElementById('head4')
+    let head5 =document.getElementById('head5')
+    let head6=document.getElementById('head6')
+
+    head.textContent=`${localStorage.getItem('pagetwo')}`
+    head2.textContent=`${localStorage.getItem('page21')}`
+    head3.textContent=`${localStorage.getItem('page22')}`
+
+    head4.textContent=`${localStorage.getItem('page1')}`
+    head5.textContent=`${localStorage.getItem('page12')}`
+    head6.textContent=`${localStorage.getItem('page123')}`
+
+
+
+</script>
+</html>

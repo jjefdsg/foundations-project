@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      body{
+        background-color: lightcyan;
+      }
+      #img{
+        height: 150;
+      }
+    </style>
+</head>
+<body>
+    <h1>Water Nation</h1>
+
+    <div>
+      <img id="img" src="https://m.media-amazon.com/images/I/51rE3+zt5DL._AC_SS450_.jpg" alt="Water Nation">
+    </div>
+    <table id="table-one">
+      <thead id="table-head"></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+
+    <table>
+        <tr>
+          <th>Defect ID</th>
+          <th>Accept/Decline</th>
+          <th>update</th>
+        </tr>
+        <tr>
+          <td><input type="text" id="input"></td>
+          <td>
+            <select name="" id="select" >
+            <option value="Accepted">Accepted</option>
+            <option value="Declined">Declined</option>
+          </select>
+        </td>
+        <td><select id="select2">
+            <option value="Fixed">Fixed</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Shelved">Shelved</option>
+
+
+
+        </select></td>
+        </tr>
+      </table>
+      <button onclick="update()">Finalize Defect</button>
+
+      <p id="result"></p>
+      
+</body>
+<script>
+
+async function getDefect(){
+
+
+ 
+
+let config={
+  method:'GET',
+  headers:{'Content-Type':"application/json"}
+}
+
+
+
+// make an httprequest to get all defects
+let httpResponse = await fetch(`https://bugcatcher.coe.revaturelabs.com/13/defects`,config);
+let responseBody= await httpResponse.json()
+console.log(responseBody)
+
+//loop through defects and post on tester page; only defects assigned to tester
+
+if(httpResponse.status === 200){ 
+    console.log(responseBody);
+// I need to make a new row for the defect name, defect desc, and defect number
+                  
+  let hd = document.createElement("th")
+  hd.innerHTML = 
+   `
+  <th>Defect Number</th>    
+  <th>Status</th>
+   `
+  tableHead.appendChild(hd);
+
+  for(let defect of responseBody){
+      if(defect.assignedTo==='TesterThree'){
+
+        let tr = document.createElement("tr")
+        tr.innerHTML = 
+        `
+        <td>${defect.defectId}</td>
+        <td>${defect.stepsToReproduce}</td>
+        <td>${defect.desc}</td>
+        <td>${defect.status}</td>
+        `
+        tableBody.appendChild(tr);
+
+
+
+
+          }
+      }
+    }    
+  }
+getDefect()
+
+
+let tableHead = document.getElementById('table-head')
+let tableBody= document.getElementById('table-body')
+let input = document.getElementById('input')
+  let select=document.getElementById('select')
+  let seclect2=document.getElementById('select2')
+
+async function update(){
+
+let defectInfo ={
+"status": select.value
+}
+
+let decfectInfoJSON = JSON.stringify(defectInfo);
+
+let config ={
+method:'PATCH',
+headers:{'Content-Type':"application/json"}, // some APIs will return an error message without this value included
+body: decfectInfoJSON
+}
+
+
+let httpResponse = await fetch(`https://bugcatcher.coe.revaturelabs.com/13/defects/${document.getElementById('input').value}`, config);
+
+  console.log(httpResponse)
+if(httpResponse.status=== 204){
+
+  alert(input.value + ' has been ' + select.value + ' and ' + seclect2.value )
+
+}
+
+
+    }
+   
+
+
+
+</script>
+
+</html>
